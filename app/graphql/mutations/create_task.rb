@@ -3,18 +3,22 @@ module Mutations
   class CreateTask < BaseMutation
     argument :title, String, required: true
     argument :description, String, required: false
+    argument :completed, Boolean, required: false
 
     field :task, Types::TaskType, null: false
 
-    def resolve(title:, description:)
+    def resolve(title:, description:, completed:)
       user = context[:current_user]
-      
+
       if user.present?
-        task = Task.find_or_create_by!(
+        task = Task.find_or_initialize_by(
           title: title,
           description: description,
           user: user
         )
+        task.completed = completed
+        task.save
+        
         { task: task }
       else
         raise GraphQL::ExecutionError.new("User not authenticated")

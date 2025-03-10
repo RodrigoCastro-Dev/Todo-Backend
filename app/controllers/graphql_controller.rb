@@ -5,9 +5,7 @@ class GraphqlController < ApplicationController
     variables = ensure_hash(params[:variables])
     query = params[:query]
     operation_name = params[:operationName]
-    context = {
-      current_user: @current_user
-    }
+    context = { current_user: @current_user }
     result = TodoApiSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
     render json: result
   end
@@ -16,14 +14,9 @@ class GraphqlController < ApplicationController
 
   def authenticate_user
     token = request.headers["Authorization"]&.split(" ")&.last
-    return unless token
-
-    begin
-      decoded_token = JWT.decode(token, Rails.application.credentials.devise_jwt_secret_key!).first
-      @current_user = User.find(decoded_token['sub'])
-    rescue JWT::DecodeError
-      @current_user = nil
-    end
+    render :unauthorized unless token
+    decoded_token = JWT.decode(token, Rails.application.credentials.devise_jwt_secret_key!).first
+    @current_user = User.find(decoded_token['sub'])
   end
 
   def ensure_hash(ambiguous_param)
