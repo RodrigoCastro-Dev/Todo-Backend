@@ -7,6 +7,7 @@ module Mutations
 
     def resolve(id:)
       task = Task.find_by(id: id)
+
       if task
         task.destroy
         { message: "Task deleted successfully" }

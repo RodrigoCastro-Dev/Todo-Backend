@@ -35,18 +35,18 @@ gem "thruster", require: false
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin Ajax possible
 # gem "rack-cors"
 # Authentication
-gem 'devise'
-gem 'devise-jwt' # JWT-based authentication
-gem 'jsonapi-serializer'
+gem "devise"
+gem "devise-jwt" # JWT-based authentication
+gem "jsonapi-serializer"
 # GraphQL
-gem 'graphql'
-gem 'graphiql-rails', group: :development
+gem "graphql"
+gem "graphiql-rails", group: :development
 
 # Authorization (Optional, for role-based access)
-gem 'pundit'
+gem "pundit"
 
 # CORS (for frontend communication)
-gem 'rack-cors'
+gem "rack-cors"
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
@@ -57,5 +57,3 @@ group :development, :test do
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
 end
-
-

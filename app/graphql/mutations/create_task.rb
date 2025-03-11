@@ -18,7 +18,7 @@ module Mutations
         )
         task.completed = completed
         task.save
-        
+
         { task: task }
       else
         raise GraphQL::ExecutionError.new("User not authenticated")

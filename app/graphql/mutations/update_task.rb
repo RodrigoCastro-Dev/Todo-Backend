@@ -6,12 +6,12 @@ module Mutations
     argument :completed, Boolean, required: false
 
     field :task, Types::TaskType, null: true
-    field :errors, [String], null: false
+    field :errors, [ String ], null: false
 
     def resolve(id:, title: nil, description: nil, completed: nil)
       task = Task.find_by(id: id)
 
-      return { task: nil, errors: ["Task not found"] } if task.nil?
+      return { task: nil, errors: [ "Task not found" ] } if task.nil?
 
       if task.update(title: title, description: description, completed: completed)
         { task: task, errors: [] }

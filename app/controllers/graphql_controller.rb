@@ -14,9 +14,9 @@ class GraphqlController < ApplicationController
 
   def authenticate_user
     token = request.headers["Authorization"]&.split(" ")&.last
-    render :unauthorized unless token
+    return head :unauthorized unless token
     decoded_token = JWT.decode(token, Rails.application.credentials.devise_jwt_secret_key!).first
-    @current_user = User.find(decoded_token['sub'])
+    @current_user = User.find(decoded_token["sub"])
   end
 
   def ensure_hash(ambiguous_param)
