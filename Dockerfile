@@ -19,6 +19,8 @@ WORKDIR /app
 
 # Copy Gemfile and install gems
 COPY Gemfile Gemfile.lock ./
+COPY config/database.yml config/database.yml
+COPY config/credentials.yml.enc config/credentials.yml.enc
 RUN bundle install --without development test
 
 # Copy the rest of the application
