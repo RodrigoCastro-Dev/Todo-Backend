@@ -44,7 +44,7 @@ gem "graphiql-rails", group: :development
 
 # Authorization (Optional, for role-based access)
 gem "pundit"
-
+gem 'dotenv-rails', groups: [:development, :test]
 # CORS (for frontend communication)
 gem "rack-cors"
 group :development, :test do
