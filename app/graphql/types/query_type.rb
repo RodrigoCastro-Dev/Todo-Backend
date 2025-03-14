@@ -2,15 +2,16 @@
 
 module Types
   class QueryType < Types::BaseObject
-    field :tasks, [Types::TaskType], null: false do
+    field :tasks, [ Types::TaskType ], null: false do
       argument :description, String, required: false
       argument :completed, Boolean, required: false
     end
 
     def tasks(description: nil, completed: nil)
-      tasks = Task.all.order(:completed)
-      tasks = tasks.where('description LIKE ?', "%#{description}%") if description
-      tasks = tasks.where(completed: completed) unless completed.nil?
+      tasks = Task.by_description(description)
+                  .by_status(completed)
+                  .order(:completed, created_at: :desc)
+
       tasks
     end
   end
