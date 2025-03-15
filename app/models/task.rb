@@ -10,4 +10,8 @@ class Task < ApplicationRecord
   scope :by_status, ->(status) {
     where(completed: status) unless status.nil?
   }
+
+  scope :by_user, ->(user) {
+    where(user: user) if user.present?
+  }
 end

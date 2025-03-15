@@ -10,6 +10,7 @@ module Types
     def tasks(description: nil, completed: nil)
       tasks = Task.by_description(description)
                   .by_status(completed)
+                  .by_user(context[:current_user])
                   .order(:completed, created_at: :desc)
 
       tasks
